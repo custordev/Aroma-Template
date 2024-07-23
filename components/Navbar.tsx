@@ -245,7 +245,7 @@ export default function NavBar() {
           </div>
           <Link
             href="/login"
-            className="bg-[rgb(0,49,62)] hover:bg-[rgba(0,49,62,0.83)] py-2 px-4 text-gray-200 rounded-3xl"
+            className="bg-blue-600 hover:bg-blue-700 py-2 px-4 text-gray-100 font-bold rounded-md"
           >
             Login
           </Link>
