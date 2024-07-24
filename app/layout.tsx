@@ -17,9 +17,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="light" style={{ colorScheme: "light" }}>
       <body className={inter.className}>
-        <div className="py-4 lg:px-20 px-4 bg-blue-100 min-h-screen">
+        <div className="py-4 lg:px-20 px-4 bg-blue-50 min-h-screen">
           <NavBar />
           {children}
           <ButtonDemo />
