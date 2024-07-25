@@ -17,6 +17,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import Cart from "./Cart";
+import LogoComponent from "./LogoComponent";
 
 const pages = [
   {
@@ -63,12 +64,7 @@ export default function NavBar() {
         aria-label="Global"
       >
         <div className="  flex lg:flex-1">
-          <Link href="/" className="-m-1.5 p-1.5">
-            <span className="sr-only">Your Company</span>
-            <h1 className="scroll-m-20 text-3xl font-extrabold tracking-tight lg:text-4xl">
-              Aroma
-            </h1>
-          </Link>
+          <LogoComponent />
         </div>
         <div className="flex lg:hidden justify-around items-center gap-10 ">
           <div className="flex relative order-first lg:order-none  gap-2 items-center justify-center">
