@@ -85,7 +85,7 @@ export default function NavBar() {
           </div>
         </div>
 
-        <Popover.Group className="hidden lg:flex lg:gap-x-12">
+        <Popover.Group className="hidden lg:flex lg:gap-x-9">
           <Link
             href="/"
             className="text-sm font-semibold leading-6 text-gray-900"
@@ -240,10 +240,10 @@ export default function NavBar() {
             </span>
           </div>
           <Link
-            href="/login"
+            href="/shop"
             className="bg-blue-600 hover:bg-blue-700 py-2 px-4 text-gray-100 font-bold rounded-md"
           >
-            Login
+            Shop Now
           </Link>
         </div>
       </nav>

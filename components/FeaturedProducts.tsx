@@ -107,7 +107,7 @@ export default function FeaturedProducts() {
         {featuredProducts.map((item) => (
           <Link
             key={item.id}
-            href={`products${item.id}`}
+            href={`shop/${item.id}`}
             className="flex flex-col   bg-[#E6E7F2] px-4 py-2 gap-1 rounded-2xl "
           >
             <Image

@@ -76,6 +76,22 @@ function Footer() {
           </div>
         </div>
 
+        <div className="flex items-start justify-start  flex-col gap-3">
+          <h2 className="font-bold text-xl">Stay In The Loop</h2>
+          <input
+            type="text"
+            placeholder="Your Email"
+            className="py-2 px-8 rounded-md border border-md  bg-white text-gray-400 lg:w-96"
+          />
+          <button className="bg-blue-600 hover:bg-blue-700 py-2 px-4 text-gray-100 font-bold rounded-md">
+            Subscribe
+          </button>
+          <p className="text-sm w-[29rem]   ">
+            By subscribing you agree to with our{" "}
+            <span className="text-blue-600">Privacy Policy</span> and provide
+            consent to receive updates from our company
+          </p>
+        </div>
         <hr className="my-6 border-stone-200 sm:mx-auto lg:my-8" />
         <div className="sm:flex sm:items-center sm:justify-between">
           {" "}

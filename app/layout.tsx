@@ -20,8 +20,8 @@ export default function RootLayout({
   return (
     <html lang="en" className="light" style={{ colorScheme: "light" }}>
       <body className={inter.className}>
-        <div className=" bg-blue-50 min-h-screen">
-          <div className="py-4 lg:px-20 px-4">
+        <div className=" bg-[#F7F8FF] min-h-screen">
+          <div className="py-4 lg:px-24 px-6">
             <NavBar />
             {children}
             <ButtonDemo />
