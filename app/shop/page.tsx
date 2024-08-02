@@ -107,6 +107,20 @@ export default function page() {
       title: "Headphone Case",
       price: "$40.00 USD",
     },
+    {
+      id: 14,
+      img: "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1350&q=80",
+      category: "headphones",
+      title: "Replica headphones",
+      price: "$30.00 USD",
+    },
+    {
+      id: 15,
+      img: "https://images.unsplash.com/photo-1504274066651-8d31a536b11a?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=675&q=80",
+      category: "accessories",
+      title: "Polaroid camera",
+      price: "$60.00 USD",
+    },
   ];
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;

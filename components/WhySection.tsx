@@ -48,7 +48,7 @@ export default function WhySection() {
           <Image
             width={1080}
             height={1080}
-            className="lg:w-80 w-60 h-40"
+            className="lg:w-60 w-60 h-40"
             src="https://assets-global.website-files.com/6493dcfff5da93a7486cd781/64940630379efe9643f2220a_Earbuds-p-500.png"
             alt=""
           />
@@ -90,7 +90,6 @@ export default function WhySection() {
           </div>
         </div>
       </div>
-
       <div className="flex flex-col lg:flex-row gap-10">
         <button className="py-2 px-8 bg-blue  font-bold rounded-md  bg-blue-600 hover:bg-blue-700 text-white ">
           Shop Now

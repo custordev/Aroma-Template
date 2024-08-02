@@ -3,7 +3,7 @@ import React from "react";
 
 export default function JoinListSection() {
   return (
-    <div className="flex items-center  bg-[#FCFCFF] gap-36 rounded-r-lg">
+    <div className="flex items-center  bg-white gap-36 rounded-r-lg">
       <div>
         <Image
           width={1080}
