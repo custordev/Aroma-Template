@@ -44,3 +44,8 @@
 //     </div>
 //   );
 // }
+import React from "react";
+
+export default function FormSeclectInput() {
+  return <div>FormSeclectInput</div>;
+}
