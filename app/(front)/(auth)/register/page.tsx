@@ -1,6 +1,4 @@
 import RegisterForm from "@/components/forms/RegisterForm";
-import { Lock, Mail } from "lucide-react";
-import Link from "next/link";
 import React from "react";
 
 export default function page() {

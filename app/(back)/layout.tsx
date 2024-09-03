@@ -1,6 +1,5 @@
 import Header from "@/components/backend/Header";
 import SlideBar from "@/components/backend/SlideBar";
-import { Button } from "@/components/ui/button";
 import React, { ReactNode } from "react";
 
 export default function AdminLayout({ children }: { children: ReactNode }) {

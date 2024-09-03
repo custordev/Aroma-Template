@@ -10,15 +10,12 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { LayoutDashboard, LogOut, Settings } from "lucide-react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { signOut } from "next-auth/react";
 import Link from "next/link";
 import { getInitials } from "@/lib/generateInitials";
 import { Session } from "next-auth";
 import LogoutBtn from "./LogoutBtn";
 
 export default function UserAvatar({ session }: { session: Session | null }) {
-  const role = session?.user?.role;
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
@@ -59,17 +56,6 @@ export default function UserAvatar({ session }: { session: Session | null }) {
             <span>Edit Profile</span>
           </Link>
         </DropdownMenuItem>
-        {/* {role === "USER" && (
-          <DropdownMenuItem>
-            <Link
-              href="/dashboard/orders"
-              className="flex items-center space-x-2"
-            >
-              <Settings className="mr-2 h-4 w-4" />
-              <span>My Orders</span>
-            </Link>
-          </DropdownMenuItem>
-        )} */}
         <DropdownMenuItem>
           <LogoutBtn />
         </DropdownMenuItem>

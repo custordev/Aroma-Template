@@ -3,17 +3,14 @@ import React from "react";
 export default function ProductSection() {
   return (
     <div>
-      {/* <!-- Features --> */}
       <div className="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto ">
         <div className="relative p-6 md:p-16 ">
-          {/* <!-- Grid --> */}
           <div className="relative z-10 lg:grid lg:grid-cols-12 lg:gap-16 lg:items-center">
             <div className="mb-10 lg:mb-0 lg:col-span-6 lg:col-start-8 lg:order-2">
               <h2 className="text-2xl text-gray-800 font-bold sm:text-3xl ">
                 Fully customizable rules to match your unique needs
               </h2>
 
-              {/* <!-- Tab Navs --> */}
               <nav
                 className="grid gap-4 mt-5 md:mt-10"
                 aria-label="Tabs"
@@ -137,13 +134,10 @@ export default function ProductSection() {
                   </span>
                 </button>
               </nav>
-              {/* <!-- End Tab Navs --> */}
             </div>
-            {/* <!-- End Col --> */}
 
             <div className="lg:col-span-6">
               <div className="relative">
-                {/* <!-- Tab Content --> */}
                 <div>
                   <div
                     id="tabs-with-card-1"
@@ -183,9 +177,7 @@ export default function ProductSection() {
                     />
                   </div>
                 </div>
-                {/* <!-- End Tab Content --> */}
 
-                {/* <!-- SVG Element --> */}
                 <div className="hidden absolute top-0 end-0 translate-x-20 md:block lg:translate-x-20">
                   <svg
                     className="w-16 h-auto text-blue-600"
@@ -215,21 +207,15 @@ export default function ProductSection() {
                     />
                   </svg>
                 </div>
-                {/* <!-- End SVG Element --> */}
               </div>
             </div>
-            {/* <!-- End Col --> */}
           </div>
-          {/* <!-- End Grid --> */}
 
-          {/* <!-- Background Color --> */}
           <div className="absolute inset-0 grid grid-cols-12 size-full">
             <div className="col-span-full lg:col-span-7 lg:col-start-6 bg-white w-full h-5/6 rounded-xl sm:h-3/4 lg:h-full dark:bg-neutral-800"></div>
           </div>
-          {/* <!-- End Background Color --> */}
         </div>
       </div>
-      {/* <!-- End Features --> */}
     </div>
   );
 }

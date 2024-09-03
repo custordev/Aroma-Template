@@ -7,7 +7,7 @@ import React, { ReactNode } from "react";
 
 export default async function layout({ children }: { children: ReactNode }) {
   const session = await getServerSession(authOptions);
-  console.log(session, "session in nav bar");
+  // console.log(session, "session in nav bar");
   return (
     <div>
       <div className="bg-[#F7F8FF] min-h-screen">

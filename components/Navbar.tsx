@@ -17,9 +17,9 @@ import {
 import Link from "next/link";
 import Cart from "./Cart";
 import LogoComponent from "./LogoComponent";
-import AuthenticatedAvator from "./global/AuthenticatedAvator";
+
 import { Session } from "next-auth";
-import { User } from "lucide-react";
+
 import UserAvatar from "./global/UserAvator";
 
 const pages = [
@@ -241,16 +241,6 @@ export default function Navbar({ session }: { session: Session | null }) {
               0
             </span>
           </div>
-          {/* {session ? (
-            <AuthenticatedAvator session={session} />
-          ) : (
-            <Link
-              href="/login"
-              className="bg-blue-600 hover:bg-blue-700 py-2 px-4 text-gray-100 font-bold rounded-md"
-            >
-              Login
-            </Link>
-          )} */}
 
           <div className="lg:flex gap-8 hidden">
             {session ? (
