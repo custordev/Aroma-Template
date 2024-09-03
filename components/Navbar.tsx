@@ -14,10 +14,13 @@ import {
   PhoneIcon,
   PlayCircleIcon,
 } from "@heroicons/react/20/solid";
-import Image from "next/image";
 import Link from "next/link";
 import Cart from "./Cart";
 import LogoComponent from "./LogoComponent";
+import AuthenticatedAvator from "./global/AuthenticatedAvator";
+import { Session } from "next-auth";
+import { User } from "lucide-react";
+import UserAvatar from "./global/UserAvator";
 
 const pages = [
   {
@@ -45,6 +48,7 @@ const pages = [
     icon: SquaresPlusIcon,
   },
 ];
+
 const callsToAction = [
   { name: "Watch demo", href: "#", icon: PlayCircleIcon },
   { name: "Contact sales", href: "#", icon: PhoneIcon },
@@ -54,7 +58,7 @@ function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function NavBar() {
+export default function Navbar({ session }: { session: Session | null }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
@@ -84,7 +88,6 @@ export default function NavBar() {
             </button>
           </div>
         </div>
-
         <Popover.Group className="hidden lg:flex lg:gap-x-9">
           <Link
             href="/"
@@ -168,7 +171,6 @@ export default function NavBar() {
           >
             Find us
           </Link>
-
           <Popover className="relative">
             <Popover.Button className="flex items-center gap-x-1 text-sm font-semibold leading-6 text-gray-900">
               Pages
@@ -239,15 +241,31 @@ export default function NavBar() {
               0
             </span>
           </div>
-          <Link
-            href="/shop"
-            className="bg-blue-600 hover:bg-blue-700 py-2 px-4 text-gray-100 font-bold rounded-md"
-          >
-            Shop Now
-          </Link>
+          {/* {session ? (
+            <AuthenticatedAvator session={session} />
+          ) : (
+            <Link
+              href="/login"
+              className="bg-blue-600 hover:bg-blue-700 py-2 px-4 text-gray-100 font-bold rounded-md"
+            >
+              Login
+            </Link>
+          )} */}
+
+          <div className="lg:flex gap-8 hidden">
+            {session ? (
+              <UserAvatar session={session} />
+            ) : (
+              <Link
+                href="/login"
+                className=" flex bg-blue-600 hover:bg-blue-700 py-2 px-4 text-gray-100 font-bold rounded-md "
+              >
+                <span>Login</span>
+              </Link>
+            )}
+          </div>
         </div>
       </nav>
-
       <Dialog
         className="lg:hidden lg:order-none order-3"
         open={mobileMenuOpen}

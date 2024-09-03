@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 export default function Hero() {
@@ -13,9 +14,12 @@ export default function Hero() {
             Experience Sound in Its Purest Form
           </p>
           <div className="flex flex-col lg:flex-row gap-4">
-            <button className="py-2 px-8 bg-white text-black font-bold rounded-md hover:bg-transparent hover:text-white hover:border">
+            <Link
+              href="/shop"
+              className="py-2 px-8 bg-white text-black font-bold rounded-md hover:shadow-indigo-900   hover:shadow-md"
+            >
               Shop Now
-            </button>
+            </Link>
             <button className="py-2 px-8 border border-md rounded-md  bg-transparent hover:bg-white hover:text-black font-bold">
               Learn More
             </button>

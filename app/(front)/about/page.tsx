@@ -1,4 +1,5 @@
 import ExperienceSection from "@/components/ExperienceSection";
+import ProductSection from "@/components/ProductSection";
 import ValueSection from "@/components/ValueSection";
 import Image from "next/image";
 import React from "react";
@@ -64,8 +65,9 @@ export default function page() {
           <p className="font-bold  ">Community Members</p>
         </div>
       </div>
-      {/* <ValueSection /> */}
-      {/* <ExperienceSection /> */}
+      <ValueSection />
+      <ExperienceSection />
+      <ProductSection />
     </div>
   );
 }

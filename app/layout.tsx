@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import NavBar from "@/components/Navbar";
-import { ButtonDemo } from "@/components/Buy-Template";
-import Footer from "@/components/Footer";
+import Provider from "@/components/Provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,16 +17,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="light" style={{ colorScheme: "light" }}>
-      <body className={inter.className}>
-        <div className=" bg-[#F7F8FF] min-h-screen">
-          <div className="py-4 lg:px-24 px-6">
-            <NavBar />
-            {children}
-            <ButtonDemo />
-          </div>
-          <Footer />
+      <Provider>
+        <div>
+          <body className={inter.className}>{children}</body>
         </div>
-      </body>
+      </Provider>
     </html>
   );
 }
