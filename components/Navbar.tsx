@@ -15,12 +15,14 @@ import {
   PlayCircleIcon,
 } from "@heroicons/react/20/solid";
 import Link from "next/link";
-import Cart from "./Cart";
+
 import LogoComponent from "./LogoComponent";
 
 import { Session } from "next-auth";
 
 import UserAvatar from "./global/UserAvator";
+import { useAppSelector } from "@/app/hooks/hooks";
+import { Cart } from "./Cart";
 
 const pages = [
   {
@@ -59,6 +61,7 @@ function classNames(...classes: any) {
 }
 
 export default function Navbar({ session }: { session: Session | null }) {
+  const cartItems = useAppSelector((state) => state.Cart.cartItems);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
@@ -73,8 +76,8 @@ export default function Navbar({ session }: { session: Session | null }) {
         <div className="flex lg:hidden justify-around items-center gap-10 ">
           <div className="flex relative order-first lg:order-none  gap-2 items-center justify-center">
             <Cart />
-            <span className="bg-black fixed text-sm text-white py-.5 px-1.5 mb-8 ml-6 rounded-full ">
-              0
+            <span className="text-white  items-center justify-center   inline-flex bg-blue-600 absolute    w-6 h-6 text-xs   font-bold  mb-8 ml-6 rounded-full  ">
+              {cartItems.length.toString().padStart(2, "0")}
             </span>
           </div>
           <div className="flex">
@@ -237,9 +240,10 @@ export default function Navbar({ session }: { session: Session | null }) {
         <div className="hidden lg:flex gap-8 lg:flex-1 lg:justify-end">
           <div className="flex relative gap-2 items-center justify-center">
             <Cart />
-            <span className="bg-black fixed text-sm text-white py-.5 px-1.5 mb-8 ml-6 rounded-full ">
-              0
+            <span className="text-white  items-center justify-center   inline-flex bg-blue-600 absolute    w-6 h-6 text-xs   font-bold  mb-8 ml-6 rounded-full  ">
+              {cartItems.length.toString().padStart(2, "0")}
             </span>
+            
           </div>
 
           <div className="lg:flex gap-8 hidden">
@@ -262,7 +266,7 @@ export default function Navbar({ session }: { session: Session | null }) {
         onClose={setMobileMenuOpen}
       >
         <div className="fixed inset-0 z-10" />
-        <Dialog.Panel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-[#8DE5E1] px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
+        <Dialog.Panel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-[#FFFF] px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
           <div className="flex items-center justify-between">
             <Link href="/" className="-m-1.5 p-1.5">
               <span className="sr-only">Your Company</span>
@@ -357,14 +361,19 @@ export default function Navbar({ session }: { session: Session | null }) {
                   )}
                 </Disclosure>
               </div>
-
-              <div className="flex">
-                <Link
-                  href="/login"
-                  className="bg-[rgb(0,49,62)] hover:bg-[rgba(0,49,62,0.83)] py-2 px-4 text-gray-200 rounded-3xl"
-                >
-                  Login
-                </Link>
+              <div className="lg:flex gap-8 ">
+                {session ? (
+                  <UserAvatar session={session} />
+                ) : (
+                  <div className="flex">
+                    <Link
+                      href="/login"
+                      className=" bg-blue-600 hover:bg-blue-700  py-2 px-4 text-gray-200 rounded-3xl"
+                    >
+                      Login
+                    </Link>
+                  </div>
+                )}
               </div>
             </div>
           </div>
