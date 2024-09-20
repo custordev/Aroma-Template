@@ -8,6 +8,7 @@ interface PageProps {
 }
 
 export default async function Page({ params }: PageProps) {
+  // console.log(params.id);
   return (
     <div className="flex flex-col gap-6">
       <DetailledProductCard productId={params.id} />
