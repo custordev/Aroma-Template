@@ -139,16 +139,14 @@ export default function Page() {
           </ul>
         </div>
         <div className="mt-3">
-        <Pagination>
+          <Pagination>
             <PaginationContent className="flex flex-col gap-8">
               <PaginationItem>
                 <div className="grid lg:grid-cols-3 grid-cols-2 gap-6">
                   {loading
                     ? Array(6)
                         .fill(0)
-                        .map((_, index) => (
-                          <ProductCardSkeleton key={index} />
-                        ))
+                        .map((_, index) => <ProductCardSkeleton key={index} />)
                     : currentProducts.map((item) => (
                         <Link
                           key={item.id}
@@ -158,7 +156,7 @@ export default function Page() {
                           <Image
                             width={1080}
                             height={1080}
-                            className="w-60 h-60 hover:animate-pulse"
+                            className="lg:w-72 lg:h-64 w-full hover:animate-pulse object-cover"
                             src={item.imageUrl as string}
                             alt={item.title}
                           />

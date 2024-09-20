@@ -9,8 +9,14 @@ import Link from "next/link";
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-
+import {
+  addProductToCart,
+  removeProductFromCart,
+} from "@/app/store/slice/cartSlice";
+import { useAppDispatch, useAppSelector } from "@/app/hooks/hooks";
+import { toast } from "@/components/ui/use-toast";
 function ProductDetail({ productId }: { productId: string }) {
+  const [existing, setExisting] = useState(false);
   const [detailedProduct, setDetailedProduct] = useState<ProductProps | null>(
     null
   );
@@ -51,6 +57,26 @@ function ProductDetail({ productId }: { productId: string }) {
     }
   }, [productId]);
 
+  const dispatch = useAppDispatch();
+  const cartItems = useAppSelector((state) => state.Cart.cartItems);
+  function addToCart() {
+    const newCartItem = {
+      id: detailedProduct?.id,
+      image: detailedProduct?.imageUrl,
+      name: detailedProduct?.title,
+      price: detailedProduct?.price,
+    };
+    dispatch(addProductToCart(newCartItem as any));
+    localStorage.setItem("cart", JSON.stringify([...cartItems, newCartItem]));
+    setExisting(true);
+  }
+  function removeFromCart(id: number) {
+    dispatch(removeProductFromCart(id));
+    localStorage.setItem(
+      "cart",
+      JSON.stringify(cartItems.filter((item) => item.id !== id))
+    );
+  }
   return (
     <div>
       {detailedProduct ? (
@@ -67,11 +93,11 @@ function ProductDetail({ productId }: { productId: string }) {
             </span>
           </div>
           <div className="flex flex-col lg:flex-row lg:justify-between gap-6 mt-4">
-            <div className="w-full lg:w-1/2">
+            <div className="w-full lg:w-1/2 ">
               <Image
                 width={1080}
                 height={1080}
-                className="w-full h-[400px] rounded-2xl object-contain"
+                className="w-full h-[400px] rounded-[6px] object-contain"
                 src={detailedProduct.imageUrl || "/placeholder.png"}
                 alt={detailedProduct.title || "Product Image"}
               />
@@ -87,11 +113,18 @@ function ProductDetail({ productId }: { productId: string }) {
               <p className="text-blue-600 font-bold">
                 ${detailedProduct.price?.toFixed(2) || "0.00"} USD
               </p>
-              {/* <div className="relative mb-0">
+              <div className="relative mb-0">
                 {existing ? (
                   <Button
                     variant="destructive"
-                    onClick={() => removeFromCart(detailedProduct.id)}
+                    onClick={() => {
+                      removeFromCart(detailedProduct.id as any)
+                      toast({
+                        title: "shopping Cart",
+                        description: `${detailedProduct.title} 💖 Removed from cart`,
+                      });
+                    }}
+                   
                   >
                     <ShoppingBag className="w-4 h-4 mr-2" />
                     <span>Remove from cart</span>
@@ -99,18 +132,18 @@ function ProductDetail({ productId }: { productId: string }) {
                 ) : (
                   <Button
                     className="bg-blue-600 hover:bg-blue-700"
-                    onClick={addToCart}
+                    onClick={() => {
+                      addToCart();
+                      toast({
+                        title: "shopping Cart",
+                        description: `${detailedProduct.title} 💖 Added to cart`,
+                      });
+                    }}
                   >
                     <ShoppingBag className="w-4 h-4 mr-2" />
                     <span>Add to cart</span>
                   </Button>
                 )}
-              </div> */}
-              <div className="relative mb-0">
-                <Button className="bg-blue-600 hover:bg-blue-700">
-                  <ShoppingBag className="w-4 h-4 mr-2" />
-                  <span>Add to cart</span>
-                </Button>
               </div>
             </div>
           </div>

@@ -15,14 +15,16 @@ import {
   PlayCircleIcon,
 } from "@heroicons/react/20/solid";
 import Link from "next/link";
-
 import LogoComponent from "./LogoComponent";
-
 import { Session } from "next-auth";
-
 import UserAvatar from "./global/UserAvator";
 import { useAppSelector } from "@/app/hooks/hooks";
 import { Cart } from "./Cart";
+
+// Custom SVG component for small screens
+const MobileBackgroundSVG = () => (
+  <div className="absolute inset-0 -z-10 w-full h-full bg-mobile-svg bg-no-repeat bg-cover"></div>
+);
 
 const pages = [
   {
@@ -65,18 +67,18 @@ export default function Navbar({ session }: { session: Session | null }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <header className="">
+    <header className="relative">
       <nav
-        className="flex  items-center justify-between relative bg-transparent   text-slate-800"
+        className="flex items-center justify-between relative bg-transparent text-slate-800"
         aria-label="Global"
       >
-        <div className="  flex lg:flex-1">
+        <div className="flex lg:flex-1">
           <LogoComponent />
         </div>
-        <div className="flex lg:hidden justify-around items-center gap-10 ">
-          <div className="flex relative order-first lg:order-none  gap-2 items-center justify-center">
+        <div className="flex lg:hidden justify-around items-center gap-10">
+          <div className="flex relative order-first lg:order-none gap-2 items-center justify-center">
             <Cart />
-            <span className="text-white  items-center justify-center   inline-flex bg-blue-600 absolute    w-6 h-6 text-xs   font-bold  mb-8 ml-6 rounded-full  ">
+            <span className="text-white items-center justify-center inline-flex bg-blue-600 absolute w-6 h-6 text-xs font-bold mb-8 ml-6 rounded-full">
               {cartItems.length.toString().padStart(2, "0")}
             </span>
           </div>
@@ -98,78 +100,22 @@ export default function Navbar({ session }: { session: Session | null }) {
           >
             Home
           </Link>
-          <Popover className="relative">
-            <Popover.Button className="flex items-center gap-x-1 text-sm font-semibold leading-6 text-gray-900">
-              Products
-              <ChevronDownIcon
-                className="h-5 w-5 flex-none text-gray-400"
-                aria-hidden="true"
-              />
-            </Popover.Button>
-
-            <Transition
-              as={Fragment}
-              enter="transition ease-out duration-200"
-              enterFrom="opacity-0 translate-y-1"
-              enterTo="opacity-100 translate-y-0"
-              leave="transition ease-in duration-150"
-              leaveFrom="opacity-100 translate-y-0"
-              leaveTo="opacity-0 translate-y-1"
-            >
-              <Popover.Panel className="absolute -left-8 top-full z-10 mt-3 w-screen max-w-md overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5">
-                <div className="p-4">
-                  {pages.map((item) => (
-                    <div
-                      key={item.name}
-                      className="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-gray-50"
-                    >
-                      <div className="flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
-                        <item.icon
-                          className="h-6 w-6 text-gray-600 group-hover:text-indigo-600"
-                          aria-hidden="true"
-                        />
-                      </div>
-                      <div className="flex-auto">
-                        <a
-                          href={item.href}
-                          className="block font-semibold text-gray-900"
-                        >
-                          {item.name}
-                          <span className="absolute inset-0" />
-                        </a>
-                        <p className="mt-1 text-gray-600">{item.description}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                <div className="grid grid-cols-2 divide-x divide-gray-900/5 bg-gray-50">
-                  {callsToAction.map((item) => (
-                    <a
-                      key={item.name}
-                      href={item.href}
-                      className="flex items-center justify-center gap-x-2.5 p-3 text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-100"
-                    >
-                      <item.icon
-                        className="h-5 w-5 flex-none text-gray-400"
-                        aria-hidden="true"
-                      />
-                      {item.name}
-                    </a>
-                  ))}
-                </div>
-              </Popover.Panel>
-            </Transition>
-          </Popover>
 
           <Link
-            href="/about"
+            href="/shop"
+            className="text-sm font-semibold leading-6 text-gray-900"
+          >
+            Products
+          </Link>
+          <Link
+            href="/"
             className="text-sm font-semibold leading-6 text-gray-900"
           >
             About
           </Link>
 
           <Link
-            href="/blog"
+            href="/"
             className="text-sm font-semibold leading-6 text-gray-900"
           >
             Find us
@@ -182,16 +128,7 @@ export default function Navbar({ session }: { session: Session | null }) {
                 aria-hidden="true"
               />
             </Popover.Button>
-
-            <Transition
-              as={Fragment}
-              enter="transition ease-out duration-200"
-              enterFrom="opacity-0 translate-y-1"
-              enterTo="opacity-100 translate-y-0"
-              leave="transition ease-in duration-150"
-              leaveFrom="opacity-100 translate-y-0"
-              leaveTo="opacity-0 translate-y-1"
-            >
+            <Transition as={Fragment}>
               <Popover.Panel className="absolute -left-8 top-full z-10 mt-3 w-screen max-w-md overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5">
                 <div className="p-4">
                   {pages.map((item) => (
@@ -240,19 +177,17 @@ export default function Navbar({ session }: { session: Session | null }) {
         <div className="hidden lg:flex gap-8 lg:flex-1 lg:justify-end">
           <div className="flex relative gap-2 items-center justify-center">
             <Cart />
-            <span className="text-white  items-center justify-center   inline-flex bg-blue-600 absolute    w-6 h-6 text-xs   font-bold  mb-8 ml-6 rounded-full  ">
+            <span className="text-white items-center justify-center inline-flex bg-blue-600 absolute w-6 h-6 text-xs font-bold mb-8 ml-6 rounded-full">
               {cartItems.length.toString().padStart(2, "0")}
             </span>
-            
           </div>
-
           <div className="lg:flex gap-8 hidden">
             {session ? (
               <UserAvatar session={session} />
             ) : (
               <Link
                 href="/login"
-                className=" flex bg-blue-600 hover:bg-blue-700 py-2 px-4 text-gray-100 font-bold rounded-md "
+                className="flex bg-blue-600 hover:bg-blue-700 py-2 px-4 text-gray-100 font-bold rounded-md"
               >
                 <span>Login</span>
               </Link>
@@ -260,15 +195,20 @@ export default function Navbar({ session }: { session: Session | null }) {
           </div>
         </div>
       </nav>
+
       <Dialog
-        className="lg:hidden lg:order-none order-3"
+        className="lg:hidden"
         open={mobileMenuOpen}
         onClose={setMobileMenuOpen}
       >
         <div className="fixed inset-0 z-10" />
-        <Dialog.Panel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-[#FFFF] px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
+        <Dialog.Panel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
           <div className="flex items-center justify-between">
-            <Link href="/" className="-m-1.5 p-1.5">
+            <Link
+              href="/"
+              className="-m-1.5 p-1.5"
+              onClick={() => setMobileMenuOpen(false)}
+            >
               <span className="sr-only">Your Company</span>
               <h1 className="scroll-m-20 text-3xl font-extrabold tracking-tight lg:text-4xl">
                 Aroma
@@ -283,55 +223,39 @@ export default function Navbar({ session }: { session: Session | null }) {
               <XMarkIcon className="h-6 w-6" aria-hidden="true" />
             </button>
           </div>
+
           <div className="mt-6 flow-root">
             <div className="-my-6 divide-y divide-gray-500/10">
               <div className="space-y-2 py-6">
                 <Link
-                  href="/blog"
+                  href="/"
                   className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                  onClick={() => setMobileMenuOpen(false)}
                 >
                   Home
                 </Link>
-                <Disclosure as="div" className="-mx-3">
-                  {({ open }) => (
-                    <>
-                      <Disclosure.Button className="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
-                        Products
-                        <ChevronDownIcon
-                          className={classNames(
-                            open ? "rotate-180" : "",
-                            "h-5 w-5 flex-none"
-                          )}
-                          aria-hidden="true"
-                        />
-                      </Disclosure.Button>
-                      <Disclosure.Panel className="mt-2 space-y-2">
-                        {[...pages, ...callsToAction].map((item) => (
-                          <Disclosure.Button
-                            key={item.name}
-                            as="a"
-                            href={item.href}
-                            className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                          >
-                            {item.name}
-                          </Disclosure.Button>
-                        ))}
-                      </Disclosure.Panel>
-                    </>
-                  )}
-                </Disclosure>
+                <Link
+                  href="/shop"
+                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Products
+                </Link>
                 <Link
                   href="/about"
                   className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                  onClick={() => setMobileMenuOpen(false)}
                 >
                   About
                 </Link>
                 <Link
-                  href="/blog"
+                  href="/find-us"
                   className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                  onClick={() => setMobileMenuOpen(false)}
                 >
                   Find us
                 </Link>
+
                 <Disclosure as="div" className="-mx-3">
                   {({ open }) => (
                     <>
@@ -352,6 +276,7 @@ export default function Navbar({ session }: { session: Session | null }) {
                             as="a"
                             href={item.href}
                             className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                            onClick={() => setMobileMenuOpen(false)}
                           >
                             {item.name}
                           </Disclosure.Button>
@@ -361,14 +286,15 @@ export default function Navbar({ session }: { session: Session | null }) {
                   )}
                 </Disclosure>
               </div>
-              <div className="lg:flex gap-8 ">
+              <div className="lg:flex gap-8">
                 {session ? (
                   <UserAvatar session={session} />
                 ) : (
                   <div className="flex">
                     <Link
                       href="/login"
-                      className=" bg-blue-600 hover:bg-blue-700  py-2 px-4 text-gray-200 rounded-3xl"
+                      className="bg-blue-600 hover:bg-blue-700 py-2 px-4 text-gray-200 rounded-xl"
+                      onClick={() => setMobileMenuOpen(false)}
                     >
                       Login
                     </Link>
@@ -377,6 +303,10 @@ export default function Navbar({ session }: { session: Session | null }) {
               </div>
             </div>
           </div>
+           {/* Mobile background SVG
+           <div className="block lg:hidden">
+            <MobileBackgroundSVG />
+          </div> */}
         </Dialog.Panel>
       </Dialog>
     </header>

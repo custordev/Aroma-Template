@@ -1,8 +1,10 @@
 "use client";
+
 import { useAppDispatch, useAppSelector } from "@/app/hooks/hooks";
 import { removeProductFromCart } from "@/app/store/slice/cartSlice";
 import { decrement, increment } from "@/app/store/slice/countSlice";
 import { Button } from "@/components/ui/button";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 import {
   Sheet,
@@ -62,7 +64,6 @@ export function Cart() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    // Simulate loading delay
     const timer = setTimeout(() => setLoading(false), 1000);
     return () => clearTimeout(timer);
   }, []);
@@ -108,7 +109,7 @@ export function Cart() {
           <span className="sr-only">Cart</span>
         </button>
       </SheetTrigger>
-      <SheetContent className="w-[400px] sm:w-[540px]">
+      <SheetContent className="w-[400px] sm:w-[540px] flex flex-col">
         <SheetHeader>
           <h2 className="scroll-m-20 text-xl font-semibold tracking-tight first:mt-0 border-b pb-3">
             Shopping Cart ({cartItems.length})
@@ -121,54 +122,50 @@ export function Cart() {
             ))}
           </div>
         ) : cartItems.length > 0 ? (
-          <div className="space-y-4 py-4">
-            {cartItems.map((item, i) => (
-              <div key={i} className="flex justify-between gap-4 py-3 border-b">
-                <div className="relative w-16 h-16 rounded-lg overflow-hidden">
-                  <Image
-                    fill
-                    src={item.image}
-                    alt={item.name}
-                    className="object-cover"
-                  />
-                </div>
-                <div className="space-y-2 flex-grow">
-                  <h2 className="text-sm font-medium">{item.name}</h2>
-                  <button
-                    onClick={() => handleRemove(item.id)}
-                    className="text-xs flex items-center text-red-500"
-                  >
-                    <Trash className="w-4 h-4 mr-1" />
-                    <span>Remove</span>
-                  </button>
-                </div>
-                <div className="space-y-2">
-                  <h2 className="text-sm">${item.price.toFixed(2)}</h2>
-                  <div className="flex items-center space-x-3">
+          <ScrollArea className="flex-grow">
+            <div className="space-y-4 py-4 pr-4">
+              {cartItems.map((item, i) => (
+                <div key={i} className="flex justify-between gap-4 py-3 border-b">
+                  <div className="relative w-16 h-16 rounded-lg overflow-hidden">
+                    <Image
+                      fill
+                      src={item.image}
+                      alt={item.name}
+                      className="object-cover"
+                    />
+                  </div>
+                  <div className="space-y-2 flex-grow">
+                    <h2 className="text-sm font-medium">{item.name}</h2>
                     <button
-                      onClick={() => dispatch(decrement())}
-                      className="border shadow rounded flex items-center justify-center w-10 h-7"
+                      onClick={() => handleRemove(item.id)}
+                      className="text-xs flex items-center text-red-500"
                     >
-                      <Minus className="w-4 h-4" />
-                    </button>
-                    <p className="text-sm">1</p>
-                    <button
-                      onClick={() => dispatch(increment())}
-                      className="border shadow rounded flex items-center justify-center w-10 h-7 bg-slate-800 text-white"
-                    >
-                      <Plus className="w-4 h-4" />
+                      <Trash className="w-4 h-4 mr-1" />
+                      <span>Remove</span>
                     </button>
                   </div>
+                  <div className="space-y-2">
+                    <h2 className="text-sm">${item.price.toFixed(2)}</h2>
+                    <div className="flex items-center space-x-3">
+                      <button
+                        onClick={() => dispatch(decrement())}
+                        className="border shadow rounded flex items-center justify-center w-10 h-7"
+                      >
+                        <Minus className="w-4 h-4" />
+                      </button>
+                      <p className="text-sm">1</p>
+                      <button
+                        onClick={() => dispatch(increment())}
+                        className="border shadow rounded flex items-center justify-center w-10 h-7 bg-slate-800 text-white"
+                      >
+                        <Plus className="w-4 h-4" />
+                      </button>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            ))}
-            <div className="space-y-1 py-3 border-b mb-3">
-              <div className="flex items-center justify-between text-sm">
-                <h2 className="font-medium">Total</h2>
-                <p>${totalSum.toFixed(2)}</p>
-              </div>
+              ))}
             </div>
-          </div>
+          </ScrollArea>
         ) : (
           <div className="min-h-80 flex-col space-y-4 flex items-center justify-center">
             <Image
@@ -187,23 +184,31 @@ export function Cart() {
           </div>
         )}
         {cartItems.length > 0 && (
-          <SheetFooter>
-            <SheetClose asChild>
-              <Button variant="outline" type="submit">
-                Continue Shopping
+          <>
+            <div className="space-y-1 py-3 border-t mt-3">
+              <div className="flex items-center justify-between text-sm">
+                <h2 className="font-medium">Total</h2>
+                <p>${totalSum.toFixed(2)}</p>
+              </div>
+            </div>
+            <SheetFooter>
+              <SheetClose asChild>
+                <Button variant="outline" type="submit">
+                  Continue Shopping
+                </Button>
+              </SheetClose>
+              <Button onClick={Checkout} disabled={loading}>
+                {loading ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin mr-2" />
+                    <span>Processing...</span>
+                  </>
+                ) : (
+                  <span>Proceed to Checkout</span>
+                )}
               </Button>
-            </SheetClose>
-            <Button onClick={Checkout} disabled={loading}>
-              {loading ? (
-                <>
-                  <Loader2 className="w-4 h-4 animate-spin mr-2" />
-                  <span>Processing...</span>
-                </>
-              ) : (
-                <span>Proceed to Checkout</span>
-              )}
-            </Button>
-          </SheetFooter>
+            </SheetFooter>
+          </>
         )}
       </SheetContent>
     </Sheet>

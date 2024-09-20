@@ -13,17 +13,17 @@ export default async function FeaturedProducts() {
   return (
     <div className="flex items-center justify-center flex-col gap-16 py-4">
       <h2 className="font-bold text-4xl">FeaturedProducts</h2>
-      <div className="grid lg:grid-cols-4 grid-cols-2  lg:gap-10 gap-4">
+      <div className="grid lg:grid-cols-4 grid-cols-1  lg:gap-10 gap-4">
         {featuredProducts.map((item: any) => (
           <Link
             key={item.id}
             href={`shop/${item.id}`}
-            className="flex flex-col   bg-[#E6E7F2] px-4 py-2 gap-1 rounded-2xl "
+            className="group flex flex-col   bg-[#E6E7F2] px-4 py-2 gap-1 rounded-2xl "
           >
             <Image
               width={1080}
               height={1080}
-              className="w-60 h-60 hover:animate-pulse"
+              className="object-cover transition-transform duration-300 group-hover:animate-pulse "
               src={item.imageUrl}
               alt=""
             />

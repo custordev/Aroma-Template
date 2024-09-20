@@ -6,6 +6,7 @@ import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
 import { extractRouterConfig } from "uploadthing/server";
 import { ourFileRouter } from "./api/uploadthing/core";
 import Providers from "./providers/Provider";
+import { Toaster } from "@/components/ui/toaster";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -31,6 +32,7 @@ export default function RootLayout({
              */
             routerConfig={extractRouterConfig(ourFileRouter)}
           />
+            <Toaster />
           <body className={inter.className}>{children}</body>
         </div>
       </Providers>
