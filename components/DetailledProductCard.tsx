@@ -15,12 +15,22 @@ import {
 } from "@/app/store/slice/cartSlice";
 import { useAppDispatch, useAppSelector } from "@/app/hooks/hooks";
 import { toast } from "@/components/ui/use-toast";
-function ProductDetail({ productId }: { productId: string }) {
+import { Session } from "next-auth";
+import { useRouter } from "next/navigation";
+function ProductDetail(
+  {
+    productId,
+    session,
+  }: {
+    productId: string;
+    session: Session | null;
+  }
+) {
   const [existing, setExisting] = useState(false);
   const [detailedProduct, setDetailedProduct] = useState<ProductProps | null>(
     null
   );
-
+  const router = useRouter();
   function ProductSkeleton() {
     return (
       <div className="animate-pulse">
@@ -60,15 +70,19 @@ function ProductDetail({ productId }: { productId: string }) {
   const dispatch = useAppDispatch();
   const cartItems = useAppSelector((state) => state.Cart.cartItems);
   function addToCart() {
-    const newCartItem = {
-      id: detailedProduct?.id,
-      image: detailedProduct?.imageUrl,
-      name: detailedProduct?.title,
-      price: detailedProduct?.price,
-    };
-    dispatch(addProductToCart(newCartItem as any));
-    localStorage.setItem("cart", JSON.stringify([...cartItems, newCartItem]));
-    setExisting(true);
+    if (!session) {
+      router.push(`/login?redirect=/product/${productId}`);
+    } else {
+      const newCartItem = {
+        id: detailedProduct?.id,
+        image: detailedProduct?.imageUrl,
+        name: detailedProduct?.title,
+        price: detailedProduct?.price,
+      };
+      dispatch(addProductToCart(newCartItem as any));
+      localStorage.setItem("cart", JSON.stringify([...cartItems, newCartItem]));
+      setExisting(true);
+    }
   }
   function removeFromCart(id: number) {
     dispatch(removeProductFromCart(id));
@@ -118,13 +132,12 @@ function ProductDetail({ productId }: { productId: string }) {
                   <Button
                     variant="destructive"
                     onClick={() => {
-                      removeFromCart(detailedProduct.id as any)
+                      removeFromCart(detailedProduct.id as any);
                       toast({
                         title: "shopping Cart",
                         description: `${detailedProduct.title} 💖 Removed from cart`,
                       });
                     }}
-                   
                   >
                     <ShoppingBag className="w-4 h-4 mr-2" />
                     <span>Remove from cart</span>
@@ -134,10 +147,17 @@ function ProductDetail({ productId }: { productId: string }) {
                     className="bg-blue-600 hover:bg-blue-700"
                     onClick={() => {
                       addToCart();
-                      toast({
-                        title: "shopping Cart",
-                        description: `${detailedProduct.title} 💖 Added to cart`,
-                      });
+                      {
+                        !session
+                          ? toast({
+                              title: "shopping Cart",
+                              description: `Login To Added Product to cart 😒 `,
+                            })
+                          : toast({
+                              title: "shopping Cart",
+                              description: `${detailedProduct.title} 💖 Added to cart`,
+                            });
+                      }
                     }}
                   >
                     <ShoppingBag className="w-4 h-4 mr-2" />
