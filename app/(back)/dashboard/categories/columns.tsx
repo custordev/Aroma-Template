@@ -34,11 +34,11 @@ export const columns: ColumnDef<any>[] = [
     accessorKey: "title",
     header: ({ column }) => <SortableColumn column={column} title="Title" />,
   },
-  // {
-  //   accessorKey: "imageUrl",
-  //   header: "Category Image",
-  //   cell: ({ row }) => <ImageColumn row={row} accessorKey="imageUrl" />,
-  // },
+  {
+    accessorKey: "imageUrl",
+    header: "Category Image",
+    cell: ({ row }) => <ImageColumn row={row} accessorKey="imageUrl" />,
+  },
 
   {
     accessorKey: "createdAt",
@@ -52,7 +52,7 @@ export const columns: ColumnDef<any>[] = [
       return (
         <ActionColumn
           row={row}
-          title="Category"
+          model={"Category"}
           editEndpoint={`categories/update/${category.id}`}
           id={category.id}
         />
