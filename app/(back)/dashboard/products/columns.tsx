@@ -35,14 +35,15 @@ export const columns: ColumnDef<any>[] = [
     header: ({ column }) => <SortableColumn column={column} title="Title" />,
   },
   {
+    accessorKey: "imageUrl",
+    header: "Product Image",
+    cell: ({ row }) => <ImageColumn row={row} accessorKey="imageUrl" />,
+  },
+
+  {
     accessorKey: "price",
     header: ({ column }) => <SortableColumn column={column} title="Price" />,
   },
-  // {
-  //   accessorKey: "imageUrl",
-  //   header: "Category Image",
-  //   cell: ({ row }) => <ImageColumn row={row} accessorKey="imageUrl" />,
-  // },
 
   {
     accessorKey: "createdAt",
@@ -52,13 +53,13 @@ export const columns: ColumnDef<any>[] = [
   {
     id: "actions",
     cell: ({ row }) => {
-      const category = row.original;
+      const product = row.original;
       return (
         <ActionColumn
           row={row}
-          title="Category"
-          editEndpoint={`categories/update/${category.id}`}
-          id={category.id}
+          model="product"
+          editEndpoint={`products/update/${product.id}`}
+          id={product.id}
         />
       );
     },

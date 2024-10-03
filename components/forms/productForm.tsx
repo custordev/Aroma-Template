@@ -58,7 +58,7 @@ export default function ProductForm({
   const router = useRouter();
 
   const [loading, setLoading] = useState(false);
-  const initialImage = initialData?.imageUrl || "/placeholder.svg";
+  const initialImage = initialData?.imageUrl || "/placeholder.svg" || null;
   const [imageUrl, setImageUrl] = useState(initialImage);
   console.log(imageUrl);
 
@@ -179,7 +179,7 @@ export default function ProductForm({
           <div className="grid auto-rows-max items-start gap-4 dark:border-gray-900 dark:bg-black/50 backdrop-blur-sm">
             <ImageInput
               title="Product Image"
-              imageUrl={imageUrl}
+              imageUrl={imageUrl as string}
               setImageUrl={setImageUrl}
               endpoint="productImage"
             />

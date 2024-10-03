@@ -8,7 +8,7 @@ export default async function FeaturedProducts() {
   const products: ProductProps[] | any = await getAllProducts();
   // console.log(products);
 
-  const featuredProducts = products.slice(9, 13);
+  const featuredProducts = products.slice(4, 13);
   // console.log(featuredProducts);
   return (
     <div className="flex items-center justify-center flex-col gap-16 py-4">
